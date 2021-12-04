@@ -1,0 +1,51 @@
+{
+  "name": "tutorial-template",
+  "version": "0.0.0",
+  "description": "A template to easily start the react tutorial",
+  "main": "server.js",
+  "author": "",
+  "repository": "TutorialTemplate",
+  "scripts": {
+    "build": "webpack-cli ./src/app/app.tsx --config webpack-config.js",
+    "build:watch": "webpack-cli ./src/app/app.tsx --config webpack-config.js --watch --progress",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:ci": "jest -i --ci --runInBand"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.11.0",
+    "@testing-library/react": "^10.4.3",
+    "@testing-library/user-event": "^12.0.11",
+    "@types/jest": "^26.0.3",
+    "@types/node": "^8.0.14",
+    "@types/react-dom": "^16.9.8",
+    "@types/react-router-dom": "^5.1.5",
+    "eslint": "^7.4.0",
+    "jest": "^26.1.0",
+    "jest-css-modules": "^2.1.0",
+    "jest-junit": "^11.0.1",
+    "sass": "^1.26.9",
+    "sass-loader": "^8.0.2",
+    "ts-jest": "^26.1.1",
+    "typescript": "^3.9.6",
+    "webpack": "^4.43.0"
+  },
+  "dependencies": {
+    "@types/react-router-config": "^5.0.1",
+    "css-loader": "^3.6.0",
+    "express": "^4.17.1",
+    "file-loader": "^6.0.0",
+    "path": "^0.12.7",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-router-config": "^5.1.1",
+    "react-router-dom": "^5.2.0",
+    "style-loader": "^1.2.1",
+    "ts-loader": "^7.0.5",
+    "webpack-cli": "^3.3.12"
+  },
+  "license": "ISC",
+  "optionalDependencies": {
+    "fsevents": "^2.1.3"
+  }
+}
