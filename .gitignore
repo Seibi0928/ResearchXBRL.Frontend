@@ -118,3 +118,4 @@ dist
 .pnp.*
 
 osrm-backend-data/*
+junit.xml
