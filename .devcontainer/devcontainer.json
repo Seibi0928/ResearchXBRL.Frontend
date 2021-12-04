@@ -1,0 +1,22 @@
+// For format details, see https://aka.ms/vscode-remote/devcontainer.json or this file's README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.117.1/containers/javascript-node-12
+{
+	"name": "Node.js 12",
+	"service": "front",
+	"dockerComposeFile": "./docker-compose.yml",
+	"workspaceFolder": "/workspace",
+	"appPort": [
+		3000
+	],
+	// Set *default* container specific settings.json values on container create.
+	"settings": {
+		"terminal.integrated.shell.linux": "/bin/bash"
+	},
+	// Add the IDs of extensions you want installed when the container is created.
+	"extensions": [
+		"dbaeumer.vscode-eslint",
+		"ms-azuretools.vscode-docker",
+		"firsttris.vscode-jest-runner"		
+	],
+	"shutdownAction": "none"
+}

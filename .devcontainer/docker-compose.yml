@@ -1,0 +1,21 @@
+version: '3.6'
+services:
+  front:
+    build: 
+      context: ..
+      dockerfile: Dockerfile.dev
+    ports:
+     - "3000"  
+    volumes:
+      - ..:/workspace:cached
+      - /workspace/node_modules
+    command: /bin/sh -c "npm run build;npm start;while sleep 1000; do :; done" 
+    container_name: frontend_server
+  reverse-proxy:
+    image: nginx:latest
+    volumes:
+      - ../nginx/default.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "42962:80"
+    depends_on:
+      - front
