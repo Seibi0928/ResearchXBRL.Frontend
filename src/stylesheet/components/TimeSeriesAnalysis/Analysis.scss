@@ -1,0 +1,10 @@
+.flex-container {
+  display: flex;
+  flex-direction: column;
+
+  & > div {
+    width: 30%;
+    min-width: 25rem;
+    margin: 10px;
+  }
+}

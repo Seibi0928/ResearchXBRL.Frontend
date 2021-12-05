@@ -2,7 +2,7 @@
 import * as ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Link } from "react-router-dom";
 import { renderRoutes, RouteConfig } from "react-router-config";
-import Analysis from './components/Analysis';
+import TimeSeriesAnalysis from './components/TimeSeriesAnalysis/Analysis';
 import '../stylesheet/app.scss';
 
 const Root: React.FunctionComponent<any> = ({ route }: { route: RouteConfig }) => (
@@ -10,13 +10,7 @@ const Root: React.FunctionComponent<any> = ({ route }: { route: RouteConfig }) =
         <nav>
             <ul>
                 <li>
-                    <Link to="/" className="link-button">Hello</Link>
-                </li>
-                <li>
-                    <Link to="/game" className="link-button">Game</Link>
-                </li>
-                <li>
-                    <Link to="/users" className="link-button">Users</Link>
+                    <Link to="/" className="link-button">時系列分析</Link>
                 </li>
             </ul>
         </nav>
@@ -26,8 +20,6 @@ const Root: React.FunctionComponent<any> = ({ route }: { route: RouteConfig }) =
     </div>
 );
 
-const Users = (_: unknown) => <h2>Users</h2>;
-
 const routes: RouteConfig[] = [
     {
         component: Root,
@@ -35,7 +27,7 @@ const routes: RouteConfig[] = [
             {
                 path: "/",
                 exact: true,
-                component: Analysis
+                component: TimeSeriesAnalysis
             }
         ]
     }
