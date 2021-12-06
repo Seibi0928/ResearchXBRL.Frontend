@@ -19,5 +19,5 @@ steps:
     Dockerfile: 'Dockerfile'
     buildContext: '..'
     tags: |
-      $(parameters.imageTag)-$(Build.BuildId)
-      $(parameters.imageTag)
+      ${{ parameters.imageTag }}-$(Build.BuildId)
+      ${{ parameters.imageTag }}
