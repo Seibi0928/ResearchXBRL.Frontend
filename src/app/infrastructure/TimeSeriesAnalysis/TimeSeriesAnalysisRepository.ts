@@ -11,7 +11,6 @@ type AccountItemInfo = {
 
 export class TimeSeriesAnalysisRepositoryImpl implements TimeSeriesAnalysisRepository {
   async getCorporations(keyword: string): Promise<CorporationOption[]> {
-    // TOOD: urlを変更
     const response = await fetch(`api/AnalysisMenu/suggest/corporations?keyword=${keyword}`);
     const responsBody = await response.json() as CorporationInfo[];
     return responsBody.map(c => ({
@@ -21,7 +20,6 @@ export class TimeSeriesAnalysisRepositoryImpl implements TimeSeriesAnalysisRepos
   }
 
   async getAccountItems(keyword: string): Promise<AccountItemOption[]> {
-    // TOOD: urlを変更
     const response = await fetch(`api/AnalysisMenu/suggest/accountItems?keyword=${keyword}`);
     const responsBody = await response.json() as AccountItemInfo[];
     return responsBody.map(c => ({
