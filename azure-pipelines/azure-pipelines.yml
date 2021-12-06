@@ -15,7 +15,7 @@ pool:
 steps:
 - template: buildAndTest.yml
 
-- ${{ if eq(variables['Build.SourceBranch'], 'main') }}:
+- ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/master') }}:
   - template: pushImages.yml
     parameters:
       imageTag: 'stable'
@@ -25,7 +25,7 @@ steps:
     parameters:
       imageTag: 'beta'
 
-- ${{ if eq(variables['Build.SourceBranch'], 'develop') }}:
+- ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/develop') }}:
   - template: pushImages.yml
     parameters:
       imageTag: 'alpha'
