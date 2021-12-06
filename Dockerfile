@@ -1,6 +1,7 @@
 FROM node as build-stage
 
-ADD ./package*.json ./
+COPY package.json ./
+COPY package-lock.json ./
 RUN npm install
 COPY . .
 RUN npm run build:production
