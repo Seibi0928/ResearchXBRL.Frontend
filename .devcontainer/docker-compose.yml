@@ -4,13 +4,13 @@ services:
     build: 
       context: ..
       dockerfile: Dockerfile.dev
-    expose:
-     - 3000  
     volumes:
       - ..:/workspace:cached
       - /workspace/node_modules
     command: /bin/sh -c "npm run build;npm start;while sleep 1000; do :; done" 
     container_name: frontend_server
+    ports:
+     - "3000"
   reverse-proxy:
     image: nginx:latest
     volumes:
@@ -31,8 +31,8 @@ services:
       DB_PASSWORD: mysecretpassword
       ASPNETCORE_URLS: http://+:80
       ASPNETCORE_ENVIRONMENT: Development
-    expose:
-      - 80
+    ports:
+     - "80"
     depends_on:
       - rdb_primary
       - aquire_financial_reports_batch
