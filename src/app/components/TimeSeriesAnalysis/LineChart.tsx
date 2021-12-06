@@ -1,14 +1,34 @@
-import { ChartData } from "chart.js";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+  ChartData
+} from 'chart.js'
 import React from "react";
 import { Line } from "react-chartjs-2";
-import { AccountItemOption, CorporationOption } from "./Menu";
+import { AccountItemOption, CorporationOption, TimeSeriesAnalysisRepository } from "./Menu";
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 export const performTimeSeriesAnalysis = async (
+  receiver: TimeSeriesAnalysisRepository,
   corporation: CorporationOption,
   accountItem: AccountItemOption)
   : Promise<TimeSeriesAnalysisResposeValue> => {
-  const response = await fetch(`http://localhost:8080/TimeSeriesAnalysis/result?corporationId=${corporation.value}&accountItemName=${accountItem.value}`);
-  return await response.json();
+  return await receiver.getAnalysisResult(corporation.value, accountItem.value);
 };
 const convertToChartData = (response: TimeSeriesAnalysisResposeValue)
   : ChartData<"line", number[], string> => {
@@ -46,7 +66,7 @@ type TimeSeriesAnalysisValue = {
   financialAccountPeriod: AccountPeriod
   amount: number
 };
-type TimeSeriesAnalysisResposeValue = {
+export type TimeSeriesAnalysisResposeValue = {
   accountName: string,
   unit: unknown,
   corporation: { name: string },
@@ -65,5 +85,5 @@ export const LineChart = (props: {
   } else if (!data.values.some(v => v)) {
     return <>データ無し</>;
   }
-  return <div><Line data={convertToChartData(data)} /></div>;
+  return <div role="main"><Line data={convertToChartData(data)} /></div>;
 }
