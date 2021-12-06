@@ -17,7 +17,7 @@ steps:
     repository: 'harunari/financial_analysis_frontend'
     command: 'buildAndPush'
     Dockerfile: 'Dockerfile'
-    buildContext: '..'
+    buildContext: '.'
     tags: |
       ${{ parameters.imageTag }}-$(Build.BuildId)
       ${{ parameters.imageTag }}
