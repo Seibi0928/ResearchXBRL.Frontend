@@ -1,11 +1,11 @@
-version: '3.6'
+version: '3.3'
 services:
   front:
     build: 
       context: ..
       dockerfile: Dockerfile.dev
-    ports:
-     - "3000"  
+    expose:
+     - 3000  
     volumes:
       - ..:/workspace:cached
       - /workspace/node_modules
@@ -19,3 +19,67 @@ services:
       - "42962:80"
     depends_on:
       - front
+      - api
+  api:
+    image: harunari/financial_analysis_api:stable
+    container_name: analysis_api
+    environment:
+      DB_SERVERNAME: report_rdb_primary
+      DB_USERID: postgres
+      DB_NAME: postgres
+      DB_PORT: 5432
+      DB_PASSWORD: mysecretpassword
+      ASPNETCORE_URLS: http://+:80
+      ASPNETCORE_ENVIRONMENT: Development
+    expose:
+      - 80
+    depends_on:
+      - rdb_primary
+      - aquire_financial_reports_batch
+  rdb_primary:
+    image: harunari/financial_report_primary_database:stable
+    container_name: report_rdb_primary
+    volumes:
+      - primary_database:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+      POSTGRES_PASSWORD: mysecretpassword
+    expose:
+      - 5432
+  import_corporation_info_batch:
+    image: harunari/import_corporation_info_batch:stable
+    environment:
+      DB_SERVERNAME: report_rdb_primary
+      DB_USERID: postgres
+      DB_NAME: postgres
+      DB_PORT: 5432
+      DB_PASSWORD: mysecretpassword
+    depends_on:
+      - rdb_primary
+  aquire_financial_reports_batch:
+    image: harunari/aquire_financial_reports_batch:stable
+    environment:
+      DB_SERVERNAME: report_rdb_primary
+      DB_USERID: postgres
+      DB_NAME: postgres
+      DB_PORT: 5432
+      DB_PASSWORD: mysecretpassword
+    depends_on:
+      - rdb_primary
+      - aquire_account_items_batch
+      - import_corporation_info_batch
+  aquire_account_items_batch:
+    image: harunari/aquire_account_items_batch:stable
+    environment:
+      DB_SERVERNAME: report_rdb_primary
+      DB_USERID: postgres
+      DB_NAME: postgres
+      DB_PORT: 5432
+      DB_PASSWORD: mysecretpassword
+    depends_on:
+      - rdb_primary
+volumes:
+  primary_database:
+    driver: local
+
