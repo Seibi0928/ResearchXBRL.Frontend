@@ -1,6 +1,5 @@
-FROM node as build-stage
+FROM node:12.22.7-stretch as build-stage
 
-ENV NODE_OPTIONS=--openssl-legacy-provider
 WORKDIR /src
 
 COPY ./package.json ./
@@ -9,8 +8,7 @@ RUN npm install
 COPY . .
 RUN npm run build:production
 
-FROM nginx as production-stage
+FROM nginx:1.21.4 as production-stage
 
-RUN mkdir -p /var/www/front
-
-COPY --from=build-stage /src/dist /var/www/front
+COPY --from=build-stage /src/dist /usr/share/nginx/html/dist
+COPY --from=build-stage /src/index.html /usr/share/nginx/html
