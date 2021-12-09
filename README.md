@@ -144,7 +144,7 @@ docker exec aquire_financial_reports_batch /bin/bash -c "dotnet /app/AquireFinan
 2. featureブランチ作成 (`git checkout -b feature/AmazingFeature`)
 3. 変更をコミット (`git commit -m 'Add some AmazingFeature'`)
 4. ブランチをプッシュ (`git push origin feature/AmazingFeature`)
-5. プルリク
+5. developブランチへプルリク
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
