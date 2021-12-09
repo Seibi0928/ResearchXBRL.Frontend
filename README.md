@@ -1,10 +1,6 @@
 <div id="top"></div>
 
-[![Forks][forks-shield]][forks-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-
-
+[![Build Status](https://dev.azure.com/nanteneus/%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92%E5%8B%89%E5%BC%B7%E4%BC%9A/_apis/build/status/Seibi0928.ResearchXBRL.Frontend?branchName=master)](https://dev.azure.com/nanteneus/%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92%E5%8B%89%E5%BC%B7%E4%BC%9A/_build/latest?definitionId=10&branchName=master)
 
 <!-- PROJECT LOGO -->
 <br />
@@ -85,23 +81,28 @@ EDINETのXBRL情報で勘定項目を分析するためのツール
    https://github.com/Seibi0928/ResearchXBRL.Frontend.git
    ```
 1. コンテナ環境構築(Devcontainerを使う場合)
-  a. VSCodeを開く
-  ```sh
-  code ./ResearchXBRL.Frontend
-  ```
-  b. F1を押下しコマンドパレットを開く
-  c. Reopen in Containerと入力し選択
+    - VSCodeを開く
+      ```sh
+      code ./ResearchXBRL.Frontend
+      ```
+    - F1を押下しコマンドパレットを開く
+    - Reopen in Containerと入力し選択
 
-1. Devcontainerを使わない場合
+1. DevContainerを使わない場合
    ```sh
    cd ResearchXBRL.Frontend
-   docker-compose -f ./devcontainer/docker-compose.yml
+   docker-compose -f ./devcontainer/docker-compose.yml up
    ```
 
 #### EDINETのデータインポート方法
 
 - 付属のインポート用バッチを利用します
-- 任意で実行時引数を指定してください
+    - 以下コマンドでは直近一日分をインポートできます
+```sh
+docker exec aquire_financial_reports_batch /bin/bash -c "dotnet /app/AquireFinancialReports.dll"
+```
+
+- 任意で実行時引数を指定できます
   * --from
     * 取得する書類の提出日下限を指定します
     * 指定しない場合は24時間前の日時が指定されます
@@ -116,7 +117,7 @@ EDINETのXBRL情報で勘定項目を分析するためのツール
     * インポート処理の並列数を指定します
     * 指定しない場合は1が指定されます
 
-- 例
+- 引数を使用したコマンドの一例
 ```sh
 docker exec aquire_financial_reports_batch /bin/bash -c "dotnet /app/AquireFinancialReports.dll --from 2021-01-01 --to 2021-12-01 --maxParallelism 2"
 ```
