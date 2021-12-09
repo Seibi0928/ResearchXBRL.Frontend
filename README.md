@@ -5,11 +5,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/github_username/repo_name">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
-  </a>
-
-<h3 align="center">EDINETのXBRL情報で勘定項目を分析するためのツール(仮)</h3>
+  <h3 align="center">EDINETのXBRL情報で勘定項目を分析するためのツール(仮)</h3>
 </div>
 
 
@@ -32,11 +28,9 @@
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
 
@@ -69,8 +63,7 @@ EDINETのXBRL情報で勘定項目を分析するためのツール
 ### Prerequisites
 
 簡単に環境構築するために以下3つの導入をお願いします。
-* Docker
-  * [導入手順](https://docs.docker.com/get-started/)
+* [Docker](https://docs.docker.com/get-started/)
 * [VSCode](https://code.visualstudio.com/)
 * [RemoteContainers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)(VSCode拡張)
 
