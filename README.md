@@ -128,9 +128,12 @@ docker exec aquire_financial_reports_batch /bin/bash -c "dotnet /app/AquireFinan
 
 <!-- USAGE EXAMPLES -->
 ## Usage
+
+※ 環境構築が済み、報告書データのインポートが完了していることが前提
+
 1. ブラウザで[分析画面](http://localhost:42962/)へアクセス
 1. 企業名と会計項目名を選択する
-1. 有価証券報告書データが入っていれば時系列グラフが表示される
+1. 時系列グラフが表示される
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
