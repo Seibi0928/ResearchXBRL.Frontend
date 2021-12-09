@@ -14,6 +14,7 @@ export function TimeSeriesAnalysis(props: { repository: TimeSeriesAnalysisReposi
         if (!selectedCorporation || !selectedAccountItem) {
             return;
         }
+        setAnalysisData('loading');
         performTimeSeriesAnalysis(
             repository,
             selectedCorporation,
