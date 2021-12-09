@@ -59,6 +59,7 @@ services:
       - rdb_primary
   aquire_financial_reports_batch:
     image: harunari/aquire_financial_reports_batch:stable
+    container_name: aquire_financial_reports_batch
     environment:
       DB_SERVERNAME: report_rdb_primary
       DB_USERID: postgres
