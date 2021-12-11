@@ -90,9 +90,11 @@ EDINETのXBRL情報で勘定項目を分析するためのツール
 #### EDINETのデータインポート方法
 
 - 付属のインポート用バッチを利用します
+    - ホストマシン側で以下コマンドを実行してください
     - 以下コマンドでは直近一日分をインポートできます
+
 ```sh
-docker exec aquire_financial_reports_batch /bin/bash -c "dotnet /app/AquireFinancialReports.dll"
+docker exec aquire_financial_reports_batch dotnet /app/AquireFinancialReports.dll
 ```
 
 - 任意で実行時引数を指定できます
@@ -112,7 +114,7 @@ docker exec aquire_financial_reports_batch /bin/bash -c "dotnet /app/AquireFinan
 
 - 引数を使用したコマンドの一例
 ```sh
-docker exec aquire_financial_reports_batch /bin/bash -c "dotnet /app/AquireFinancialReports.dll --from 2021-01-01 --to 2021-12-01 --maxParallelism 2"
+docker exec aquire_financial_reports_batch dotnet /app/AquireFinancialReports.dll --from 2021-01-01 --to 2021-12-01 --maxParallelism 2
 ```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
