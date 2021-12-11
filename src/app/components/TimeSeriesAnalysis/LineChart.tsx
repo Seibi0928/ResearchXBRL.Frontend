@@ -1,29 +1,60 @@
-import { ChartData } from "chart.js";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+  ChartData
+} from 'chart.js'
 import React from "react";
 import { Line } from "react-chartjs-2";
-import { AccountItemOption, CorporationOption } from "./Menu";
+import { AccountItemOption, CorporationOption, TimeSeriesAnalysisRepository } from "./Menu";
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 export const performTimeSeriesAnalysis = async (
+  receiver: TimeSeriesAnalysisRepository,
   corporation: CorporationOption,
   accountItem: AccountItemOption)
   : Promise<TimeSeriesAnalysisResposeValue> => {
-  const response = await fetch(`http://localhost:8080/TimeSeriesAnalysis/result?corporationId=${corporation.value}&accountItemName=${accountItem.value}`);
-  return await response.json();
+  return await receiver.getAnalysisResult(corporation.value, accountItem.value);
 };
 const convertToChartData = (response: TimeSeriesAnalysisResposeValue)
   : ChartData<"line", number[], string> => {
+  const toLabel = (value: TimeSeriesAnalysisValue): string => {
+    if (isInstansPeriod(value.financialAccountPeriod)) {
+      return value.financialAccountPeriod.instant;
+    }
+    return value.financialAccountPeriod.from;
+  };
+
+  const labelsSet = new Set(response.consolidatedValues
+    .map(toLabel).concat(response.nonConsolidatedValues
+    .map(toLabel)));
   return {
-    labels: response.values.map(x => {
-      if (isInstansPeriod(x.financialAccountPeriod)) {
-        return x.financialAccountPeriod.instant;
-      }
-      return x.financialAccountPeriod.from;
-    }),
+    labels: [...labelsSet],
     datasets: [{
-      label: `${response.accountName}-${response.corporation.name}`,
+      label: `連結財務諸表`,
       backgroundColor: 'rgb(255, 99, 132)',
       borderColor: 'rgb(255, 99, 132)',
-      data: response.values.map(v => v.amount)
+      data: response.consolidatedValues.map(v => v.amount)
+    },
+    {
+      label: `単体財務諸表`,
+      backgroundColor: 'rgb(77, 196, 255)',
+      borderColor: 'rgb(77, 196, 255)',
+      data: response.nonConsolidatedValues.map(v => v.amount)
     }]
   }
 }
@@ -46,11 +77,12 @@ type TimeSeriesAnalysisValue = {
   financialAccountPeriod: AccountPeriod
   amount: number
 };
-type TimeSeriesAnalysisResposeValue = {
+export type TimeSeriesAnalysisResposeValue = {
   accountName: string,
   unit: unknown,
   corporation: { name: string },
-  values: TimeSeriesAnalysisValue[]
+  consolidatedValues: TimeSeriesAnalysisValue[],
+  nonConsolidatedValues: TimeSeriesAnalysisValue[],
 }
 export type LineChartData = 'waitingUserInput' | 'loading' | TimeSeriesAnalysisResposeValue;
 
@@ -62,8 +94,9 @@ export const LineChart = (props: {
     return <>ロード中...</>;
   } else if (data === 'waitingUserInput') {
     return <></>;
-  } else if (!data.values.some(v => v)) {
+  } else if (!data.consolidatedValues.some(v => v)
+    && !data.nonConsolidatedValues.some(v => v)) {
     return <>データ無し</>;
   }
-  return <div><Line data={convertToChartData(data)} /></div>;
+  return <div role="main"><Line data={convertToChartData(data)} /></div>;
 }

@@ -1,30 +1,11 @@
 import * as React from 'react';
-import {
-    Chart as ChartJS,
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend,
-} from 'chart.js'
 import { LineChart, LineChartData, performTimeSeriesAnalysis } from './LineChart';
 import '../../../stylesheet/components/TimeSeriesAnalysis/Analysis.scss';
 import { useEffect, useState } from 'react';
-import { AccountItemOption, CorporationOption, Menu } from './Menu';
+import { AccountItemOption, CorporationOption, Menu, TimeSeriesAnalysisRepository } from './Menu';
 
-ChartJS.register(
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend
-);
-
-export default function TimeSeriesAnalysis() {
+export function TimeSeriesAnalysis(props: { repository: TimeSeriesAnalysisRepository }) {
+    const { repository } = props;
     const [selectedCorporation, setCorporation] = useState<CorporationOption | null>(null);
     const [selectedAccountItem, setAccountItem] = useState<AccountItemOption | null>(null);
     const [analysisData, setAnalysisData] = useState<LineChartData>('waitingUserInput');
@@ -33,13 +14,18 @@ export default function TimeSeriesAnalysis() {
         if (!selectedCorporation || !selectedAccountItem) {
             return;
         }
-        performTimeSeriesAnalysis(selectedCorporation, selectedAccountItem)
+        setAnalysisData('loading');
+        performTimeSeriesAnalysis(
+            repository,
+            selectedCorporation,
+            selectedAccountItem)
             .then(setAnalysisData);
     }, [selectedCorporation, selectedAccountItem]);
 
     return (
         <>
             <Menu
+                repository={repository}
                 corporationSetter={setCorporation}
                 accountItemSetter={setAccountItem} />
             <LineChart data={analysisData} />

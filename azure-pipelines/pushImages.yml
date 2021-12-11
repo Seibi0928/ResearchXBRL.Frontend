@@ -1,0 +1,23 @@
+parameters:
+- name: imageTag
+  type: string
+  default: 'alpha'
+
+steps:
+- task: Docker@2
+  displayName: 'Login Dockerhub'
+  inputs:
+    containerRegistry: 'dockerRegistryServiceConnection'
+    command: 'login'
+
+- task: Docker@2
+  displayName: 'Build and Push Front js'
+  inputs:
+    containerRegistry: 'dockerRegistryServiceConnection'
+    repository: 'harunari/financial_analysis_frontend'
+    command: 'buildAndPush'
+    Dockerfile: 'Dockerfile'
+    buildContext: '.'
+    tags: |
+      ${{ parameters.imageTag }}-$(Build.BuildId)
+      ${{ parameters.imageTag }}
