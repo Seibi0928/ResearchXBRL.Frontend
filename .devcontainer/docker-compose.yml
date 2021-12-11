@@ -60,6 +60,17 @@ services:
   aquire_financial_reports_batch:
     image: harunari/aquire_financial_reports_batch:stable
     container_name: aquire_financial_reports_batch
+    command: > 
+      /bin/bash -c "
+        # これがないとcron jobで環境変数を読み込めない
+        printenv | grep -v "no_proxy" >> /etc/environment;mkdir /etc/cron.d;
+        # 毎日午前1時にバッチ実行
+        echo '0 1 * * * dotnet /app/AquireFinancialReports.dll >> /var/log/cron.log 2>&1' >> /etc/cron.d/batch-cron;
+        chmod 0644 /etc/cron.d/batch-cron;
+        apt update && apt install -y cron;
+        service cron start;
+        crontab /etc/cron.d/batch-cron;
+        while sleep 1000; do :; done"
     environment:
       DB_SERVERNAME: report_rdb_primary
       DB_USERID: postgres
