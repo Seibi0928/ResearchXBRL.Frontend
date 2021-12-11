@@ -32,18 +32,29 @@ export const performTimeSeriesAnalysis = async (
 };
 const convertToChartData = (response: TimeSeriesAnalysisResposeValue)
   : ChartData<"line", number[], string> => {
+  const toLabel = (value: TimeSeriesAnalysisValue): string => {
+    if (isInstansPeriod(value.financialAccountPeriod)) {
+      return value.financialAccountPeriod.instant;
+    }
+    return value.financialAccountPeriod.from;
+  };
+
+  const labelsSet = new Set(response.consolidatedValues
+    .map(toLabel).concat(response.nonConsolidatedValues
+    .map(toLabel)));
   return {
-    labels: response.values.map(x => {
-      if (isInstansPeriod(x.financialAccountPeriod)) {
-        return x.financialAccountPeriod.instant;
-      }
-      return x.financialAccountPeriod.from;
-    }),
+    labels: [...labelsSet],
     datasets: [{
-      label: `${response.accountName}-${response.corporation.name}`,
+      label: `連結財務諸表`,
       backgroundColor: 'rgb(255, 99, 132)',
       borderColor: 'rgb(255, 99, 132)',
-      data: response.values.map(v => v.amount)
+      data: response.consolidatedValues.map(v => v.amount)
+    },
+    {
+      label: `単体財務諸表`,
+      backgroundColor: 'rgb(77, 196, 255)',
+      borderColor: 'rgb(77, 196, 255)',
+      data: response.nonConsolidatedValues.map(v => v.amount)
     }]
   }
 }
@@ -70,7 +81,8 @@ export type TimeSeriesAnalysisResposeValue = {
   accountName: string,
   unit: unknown,
   corporation: { name: string },
-  values: TimeSeriesAnalysisValue[]
+  consolidatedValues: TimeSeriesAnalysisValue[],
+  nonConsolidatedValues: TimeSeriesAnalysisValue[],
 }
 export type LineChartData = 'waitingUserInput' | 'loading' | TimeSeriesAnalysisResposeValue;
 
@@ -82,7 +94,8 @@ export const LineChart = (props: {
     return <>ロード中...</>;
   } else if (data === 'waitingUserInput') {
     return <></>;
-  } else if (!data.values.some(v => v)) {
+  } else if (!data.consolidatedValues.some(v => v)
+    && !data.nonConsolidatedValues.some(v => v)) {
     return <>データ無し</>;
   }
   return <div role="main"><Line data={convertToChartData(data)} /></div>;

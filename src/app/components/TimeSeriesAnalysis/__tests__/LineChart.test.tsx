@@ -14,23 +14,36 @@ describe('LineChartTest', () => {
     expect(screen.queryByRole('main')).not.toBeInTheDocument();
   });
 
-  test('分析結果が0件の場合はその旨を表示し、グラフは表示しない', () => {
+  test('連結財務諸表、単体財務諸表の分析結果が両方とも0件の場合はその旨を表示し、グラフは表示しない', () => {
     render(<LineChart data={{
       accountName: '',
       unit: {},
       corporation: { name: '' },
-      values: []
+      consolidatedValues: [],
+      nonConsolidatedValues: []
     }} />);
     expect(screen.queryByRole('main')).not.toBeInTheDocument();
     expect(screen.getByText('データ無し')).toBeInTheDocument();
   });
 
-  test('結果が1件以上の場合はグラフを表示する', () => {
+  test('連結財務諸表、単体財務諸表のどちらかの分析結果が1件以上の場合はグラフを表示する1', () => {
     render(<LineChart data={{
       accountName: '',
       unit: {},
       corporation: { name: '' },
-      values: [{ financialAccountPeriod: { instant: '' }, amount: 111 }]
+      consolidatedValues: [{ financialAccountPeriod: { instant: '' }, amount: 111 }],
+      nonConsolidatedValues: []
+    }} />);
+    expect(screen.queryByRole('main')).toBeInTheDocument();
+  })
+
+  test('連結財務諸表、単体財務諸表のどちらかの分析結果が1件以上の場合はグラフを表示する2', () => {
+    render(<LineChart data={{
+      accountName: '',
+      unit: {},
+      corporation: { name: '' },
+      consolidatedValues: [],
+      nonConsolidatedValues: [{ financialAccountPeriod: { instant: '' }, amount: 111 }]
     }} />);
     expect(screen.queryByRole('main')).toBeInTheDocument();
   })
