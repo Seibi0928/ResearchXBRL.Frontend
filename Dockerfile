@@ -1,5 +1,7 @@
 FROM node:12.22.7-stretch as build-stage
 
+ENV NODE_ENV="production"
+
 WORKDIR /src
 
 COPY ./package.json ./

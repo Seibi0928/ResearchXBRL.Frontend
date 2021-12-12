@@ -2,18 +2,15 @@
   "compilerOptions": {
     "module": "commonjs",
     "noEmitOnError": true,
-    "removeComments": false,
+    "removeComments": true,
     "sourceMap": true,
     "target": "es6",
     "jsx": "react",
-    "strictNullChecks": true,
-    "noImplicitAny": true,
-    "strict": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strict": false,
     "esModuleInterop": true
   },
-  "include": [
-    "./src/**/__tests__/**/*"
-  ],
   "exclude": [
     "node_modules"
   ],
