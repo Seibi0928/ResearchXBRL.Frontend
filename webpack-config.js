@@ -13,17 +13,13 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.ts$/,
+                test: /\.(ts|tsx)$/,
                 exclude: /(node_modules|bower_components)/,
                 use: {
-                    loader: 'ts-loader'
-                }
-            },
-            {
-                test: /\.tsx$/,
-                exclude: /(node_modules|bower_components)/,
-                use: {
-                    loader: 'ts-loader'
+                    loader: 'ts-loader',
+                    options: {
+                        configFile: 'tsconfig.json'
+                    }
                 }
             },
             {
