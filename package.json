@@ -21,15 +21,16 @@
     "@types/node": "^8.0.14",
     "@types/react-dom": "^16.9.8",
     "@types/react-router-dom": "^5.1.5",
-    "eslint": "^7.4.0",
+    "dayjs": "^1.10.7",
+    "eslint": "^8.4.1",
     "jest": "^26.1.0",
     "jest-css-modules": "^2.1.0",
-    "jest-junit": "^11.0.1",
+    "jest-junit": "^13.0.0",
     "sass": "^1.26.9",
     "sass-loader": "^8.0.2",
     "ts-jest": "^26.1.1",
     "typescript": "^3.9.6",
-    "webpack": "^4.43.0"
+    "webpack": "^5.65.0"
   },
   "dependencies": {
     "@types/react-router-config": "^5.0.1",
@@ -46,7 +47,7 @@
     "react-select": "^5.2.1",
     "style-loader": "^1.2.1",
     "ts-loader": "^7.0.5",
-    "webpack-cli": "^3.3.12"
+    "webpack-cli": "^4.9.1"
   },
   "license": "ISC",
   "optionalDependencies": {
