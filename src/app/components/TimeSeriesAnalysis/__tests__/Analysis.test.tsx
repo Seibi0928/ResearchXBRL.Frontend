@@ -27,7 +27,8 @@ function createMockRepository() {
             accountName: '',
             unit: {},
             corporation: { name: '' },
-            values: [{ financialAccountPeriod: { instant: '2021-02-01' }, amount: 111 }]
+            consolidatedValues: [{ financialAccountPeriod: { instant: '2021-02-01' }, amount: 111 }],
+            nonConsolidatedValues: []
           }));
         }
       };
