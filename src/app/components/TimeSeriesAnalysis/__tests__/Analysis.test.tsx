@@ -25,7 +25,7 @@ function createMockRepository() {
         getAnalysisResult: (_: string, __: string) => {
           return new Promise(r => r({
             accountName: '',
-            unit: {},
+            unit: { name: '', measure: '' },
             corporation: { name: '' },
             consolidatedValues: [{ financialAccountPeriod: { instant: '2021-02-01' }, amount: 111 }],
             nonConsolidatedValues: []
