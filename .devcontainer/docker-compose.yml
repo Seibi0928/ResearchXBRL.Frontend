@@ -60,7 +60,7 @@ services:
   aquire_financial_reports_batch:
     image: harunari/aquire_financial_reports_batch:stable
     container_name: aquire_financial_reports_batch
-    command: > 
+    entrypoint: > 
       /bin/bash -c "
         # これがないとcron jobで環境変数を読み込めない
         printenv | grep -v "no_proxy" >> /etc/environment;mkdir /etc/cron.d;
