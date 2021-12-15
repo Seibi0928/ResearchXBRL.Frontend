@@ -17,7 +17,7 @@ describe('LineChartTest', () => {
   test('連結財務諸表、単体財務諸表の分析結果が両方とも0件の場合はその旨を表示し、グラフは表示しない', () => {
     render(<LineChart data={{
       accountName: '',
-      unit: {},
+      unit: { name: '', measure: '' },
       corporation: { name: '' },
       consolidatedValues: [],
       nonConsolidatedValues: []
@@ -29,7 +29,7 @@ describe('LineChartTest', () => {
   test('連結財務諸表、単体財務諸表のどちらかの分析結果が1件以上の場合はグラフを表示する1', () => {
     render(<LineChart data={{
       accountName: '',
-      unit: {},
+      unit: { name: '', measure: '' },
       corporation: { name: '' },
       consolidatedValues: [{ financialAccountPeriod: { instant: '' }, amount: 111 }],
       nonConsolidatedValues: []
@@ -40,7 +40,7 @@ describe('LineChartTest', () => {
   test('連結財務諸表、単体財務諸表のどちらかの分析結果が1件以上の場合はグラフを表示する2', () => {
     render(<LineChart data={{
       accountName: '',
-      unit: {},
+      unit: { name: '', measure: '' },
       corporation: { name: '' },
       consolidatedValues: [],
       nonConsolidatedValues: [{ financialAccountPeriod: { instant: '' }, amount: 111 }]
