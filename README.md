@@ -66,12 +66,13 @@ EDINETのXBRL情報で勘定項目を分析するためのツール
 * [Docker](https://docs.docker.com/get-started/)
 * [VSCode](https://code.visualstudio.com/)
 * [RemoteContainers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)(VSCode拡張)
+  * DevContainer利用する場合に必要   
 
 ### Installation
 
 1. リポジトリのクローン
    ```sh
-   https://github.com/Seibi0928/ResearchXBRL.Frontend.git
+   git clone https://github.com/Seibi0928/ResearchXBRL.Frontend.git
    ```
 1. コンテナ環境構築(Devcontainerを使う場合)
     - VSCodeを開く
