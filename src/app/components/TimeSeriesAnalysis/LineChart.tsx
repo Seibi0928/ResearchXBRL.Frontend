@@ -37,7 +37,7 @@ const convertToChartData = (response: TimeSeriesAnalysisResposeValue)
     if (isInstantPeriod(value.financialAccountPeriod)) {
       return dayjs(value.financialAccountPeriod.instant).format('YYYY/MM');
     }
-    return dayjs(value.financialAccountPeriod.from).format('YYYY/MM');
+    return dayjs(value.financialAccountPeriod.to).format('YYYY/MM');
   };
 
   const labelsSet = new Set(response.consolidatedValues
