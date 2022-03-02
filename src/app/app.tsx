@@ -14,7 +14,10 @@ const Root: React.FunctionComponent<any> = ({ route }: { route: RouteConfig }) =
         <nav>
             <ul>
                 <li>
-                    <Link to="/" className="link-button">時系列分析</Link>
+                    <Link to="/" className="link-button">勘定項目分析</Link>
+                </li>
+                <li>
+                    <Link to="/PerformanceIndicators" className="link-button">業績指標</Link>
                 </li>
             </ul>
         </nav>
