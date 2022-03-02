@@ -76,15 +76,15 @@ export const LineChart = (props: {
 }) => {
   const { data } = props;
   if (data === 'loading') {
-    return <>ロード中...</>;
+    return <div role="main">ロード中...</div>;
   } else if (data === 'waitingUserInput') {
-    return <></>;
+    return <div role="main"></div>;
   } else if (!data.consolidatedValues.some(v => v)
     && !data.nonConsolidatedValues.some(v => v)) {
-    return <>データ無し</>;
+    return <div role="main">データ無し</div>;
   }
   return <div
-    role="main"
+    role="figure"
     className={"time-series-analysis-line-chart "}><Line options={{
       plugins: {
         title: {
