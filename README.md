@@ -88,7 +88,7 @@ EDINETのXBRL情報で勘定項目を分析するためのツール
    cd ResearchXBRL.Frontend
    docker-compose -f ./devcontainer/docker-compose.yml up
    ```
-1. データのインポートを行う([こちら](https://github.com/Seibi0928/ResearchXBRL.Frontend#edinet%E3%81%AE%E3%83%87%E3%83%BC%E3%82%BF%E3%82%A4%E3%83%B3%E3%83%9D%E3%83%BC%E3%83%88%E6%96%B9%E6%B3%95))
+3. データのインポートを行う([こちら](https://github.com/Seibi0928/ResearchXBRL.Frontend#edinet%E3%81%AE%E3%83%87%E3%83%BC%E3%82%BF%E3%82%A4%E3%83%B3%E3%83%9D%E3%83%BC%E3%83%88%E6%96%B9%E6%B3%95))
 
 #### EDINETのデータインポート方法
 
