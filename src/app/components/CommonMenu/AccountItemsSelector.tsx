@@ -3,7 +3,6 @@ import Select from 'react-select/async';
 import { AccountItemOption, CommonMenuRepository } from './CommonMenuReporitory';
 import '../../../stylesheet/components/CommonMenu/CommonSelector.scss';
 
-
 const suggestedAccountItems = async (repository: CommonMenuRepository, keyword: string): Promise<AccountItemOption[]> => {
     if (keyword.length <= 0) {
         return [];
@@ -16,8 +15,8 @@ export function AccountItemsSelector(props: { repository: CommonMenuRepository, 
     const { repository, setter } = props;
     return <div role="search" className="common-selector">
         <Select
-            className="corporation-selector"
-            placeholder={"企業名"}
+            className="accountitem-selector"
+            placeholder={"勘定項目名"}
             cacheOptions
             loadOptions={(inputValue: string) => suggestedAccountItems(repository, inputValue)}
             onChange={inputValue => {

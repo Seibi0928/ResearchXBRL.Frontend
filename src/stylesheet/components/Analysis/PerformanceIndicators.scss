@@ -1,4 +1,9 @@
-.flex-container {
+.performance-indicators-menu {
+    display: flex;
+    flex-direction: column;
+}
+
+.indicators-container {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -10,7 +15,7 @@
 }
   
 @media (max-width: 800px) {
-    .flex-container {
+    .indicators-container {
         flex-direction: column;
     }
 }

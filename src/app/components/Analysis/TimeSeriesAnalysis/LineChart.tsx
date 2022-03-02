@@ -83,16 +83,18 @@ export const LineChart = (props: {
     && !data.nonConsolidatedValues.some(v => v)) {
     return <>データ無し</>;
   }
-  return <div role="main"><Line options={{
-    plugins: {
-      title: {
-        display: true,
-        text: createChartTitle(data),
-        padding: {
-          top: 10,
-          bottom: 20
+  return <div
+    role="main"
+    className={"time-series-analysis-line-chart "}><Line options={{
+      plugins: {
+        title: {
+          display: true,
+          text: createChartTitle(data),
+          padding: {
+            top: 10,
+            bottom: 20
+          }
         }
       }
-    }
-  }} data={convertToChartData(data)} /></div>;
+    }} data={convertToChartData(data)} /></div>;
 }
