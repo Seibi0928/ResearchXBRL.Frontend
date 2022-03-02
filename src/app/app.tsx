@@ -2,9 +2,12 @@
 import * as ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Link } from "react-router-dom";
 import { renderRoutes, RouteConfig } from "react-router-config";
-import { TimeSeriesAnalysis } from './components/TimeSeriesAnalysis/Analysis';
+import { TimeSeriesAnalysis } from './components/Analysis/TimeSeriesAnalysis/TimeSeriesAnalysis';
+import { PerformanceIndicators } from './components/Analysis/PerformanceIndicators/PerformanceIndicators';
+import { CommonMenuRepositoryImpl } from './infrastructure/CommonMenu/CommonMenuRepository';
+import { TimeSeriesAnalysisRepositoryImpl } from './infrastructure/Analysis/TimeSeriesAnalysis/TimeSeriesAnalysisRepository';
+import { PerformanceIndicatorRepositoryImpl } from './infrastructure/Analysis/PerformanceIndicators/PerformanceIndicatorsRepository';
 import '../stylesheet/app.scss';
-import { TimeSeriesAnalysisRepositoryImpl } from './infrastructure/TimeSeriesAnalysis/TimeSeriesAnalysisRepository';
 
 const Root: React.FunctionComponent<any> = ({ route }: { route: RouteConfig }) => (
     <div>
@@ -29,7 +32,16 @@ const routes: RouteConfig[] = [
                 path: "/",
                 exact: true,
                 component: () => TimeSeriesAnalysis({
-                    repository: new TimeSeriesAnalysisRepositoryImpl()
+                    commonMenuRepository: new CommonMenuRepositoryImpl(),
+                    timeSeriesAnalysisRepository: new TimeSeriesAnalysisRepositoryImpl()
+                })
+            },
+            {
+                path: "/PerformanceIndicators",
+                exact: true,
+                component: () => PerformanceIndicators({
+                    commonMenuRepository: new CommonMenuRepositoryImpl(),
+                    performanceIndicatorRepository: new PerformanceIndicatorRepositoryImpl()
                 })
             }
         ]
@@ -42,3 +54,4 @@ ReactDOM.render(
     </Router>,
     document.getElementById('root')
 );
+

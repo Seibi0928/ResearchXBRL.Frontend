@@ -12,7 +12,8 @@ import {
 import dayjs from 'dayjs';
 import React from "react";
 import { Line } from "react-chartjs-2";
-import { AccountItemOption, CorporationOption, TimeSeriesAnalysisRepository } from "./Menu";
+import { AccountItemOption, CorporationOption } from '../../CommonMenu/CommonMenuReporitory';
+import { comparePeriod, isInstantPeriod, isNormalUnit, TimeSeriesAnalysisRepository, TimeSeriesAnalysisValue, TimeSeriesAnalysisViewModel } from './TimeSeriesAnalysisRepository';
 
 ChartJS.register(
   CategoryScale,
@@ -28,10 +29,10 @@ export const performTimeSeriesAnalysis = async (
   receiver: TimeSeriesAnalysisRepository,
   corporation: CorporationOption,
   accountItem: AccountItemOption)
-  : Promise<TimeSeriesAnalysisResposeValue> => {
+  : Promise<TimeSeriesAnalysisViewModel> => {
   return await receiver.getAnalysisResult(corporation.value, accountItem.value);
 };
-const convertToChartData = (response: TimeSeriesAnalysisResposeValue)
+const convertToChartData = (response: TimeSeriesAnalysisViewModel)
   : ChartData<"line", number[], string> => {
   const toLabel = (value: TimeSeriesAnalysisValue): string => {
     if (isInstantPeriod(value.financialAccountPeriod)) {
@@ -60,57 +61,7 @@ const convertToChartData = (response: TimeSeriesAnalysisResposeValue)
   }
 }
 
-const isInstantPeriod = (period: AccountPeriod): period is InstantPeriod => {
-  const mayBeInstant = period as InstantPeriod;
-  return mayBeInstant.instant?.length > 0 ?? false;
-}
-const comparePeriod = (a: TimeSeriesAnalysisValue, b: TimeSeriesAnalysisValue): number => {
-  if (isInstantPeriod(a.financialAccountPeriod)
-  && isInstantPeriod(b.financialAccountPeriod)) {
-    return a.financialAccountPeriod.instant
-      .localeCompare(b.financialAccountPeriod.instant);
-  }
-  else if (!isInstantPeriod(a.financialAccountPeriod)
-  && !isInstantPeriod(b.financialAccountPeriod)) {
-    return a.financialAccountPeriod.from
-      .localeCompare(b.financialAccountPeriod.from);
-  }
-  throw new Error('単位情報に不整合があります');
-}
-
-type AccountPeriod = InstantPeriod | DurationPeriod;
-type InstantPeriod = {
-  instant: string
-};
-type DurationPeriod = {
-  from: string,
-  to: string
-}
-type TimeSeriesAnalysisValue = {
-  financialAccountPeriod: AccountPeriod
-  amount: number
-};
-export type TimeSeriesAnalysisResposeValue = {
-  accountName: string,
-  unit: Unit,
-  corporation: { name: string },
-  consolidatedValues: TimeSeriesAnalysisValue[],
-  nonConsolidatedValues: TimeSeriesAnalysisValue[],
-}
-export type Unit = NormalUnit | DividedUnit
-type BaseUnit = { name: string }
-type NormalUnit = {
-  measure: string
-} & BaseUnit
-type DividedUnit = {
-  unitNumerator: string,
-  unitDenominator: string
-} & BaseUnit
-const isNormalUnit = (unit: Unit): unit is NormalUnit => {
-  const maybeNormalUnit = unit as DividedUnit;
-  return maybeNormalUnit.unitNumerator === null;
-};
-const createChartTitle = (data: TimeSeriesAnalysisResposeValue) => {
+const createChartTitle = (data: TimeSeriesAnalysisViewModel) => {
   if (isNormalUnit(data.unit)) {
     return `${data.accountName} ${data.unit.name}(${data.unit.measure})`
   }
@@ -118,7 +69,7 @@ const createChartTitle = (data: TimeSeriesAnalysisResposeValue) => {
   return `${data.accountName} ${data.unit.name}(${data.unit.unitNumerator} / ${data.unit.unitDenominator})`
 };
 
-export type LineChartData = 'waitingUserInput' | 'loading' | TimeSeriesAnalysisResposeValue;
+export type LineChartData = 'waitingUserInput' | 'loading' | TimeSeriesAnalysisViewModel;
 
 export const LineChart = (props: {
   data: LineChartData
