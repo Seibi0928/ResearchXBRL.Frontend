@@ -58,7 +58,7 @@ const convertToChartData = (response: TimeSeriesAnalysisViewModel)
       borderColor: 'rgb(77, 196, 255)',
       data: response.nonConsolidatedValues.sort(comparePeriod).map(v => v.amount)
     }]
-  }
+  };
 }
 
 const createChartTitle = (data: TimeSeriesAnalysisViewModel) => {
