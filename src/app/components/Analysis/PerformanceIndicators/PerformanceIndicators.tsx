@@ -4,6 +4,7 @@ import { PerformanceIndicatorsRepository } from './PerformanceIndicatorsReposito
 import { getPerformanceIndicators, LineCharts, LineChartsData } from './LineCharts';
 import { CommonMenuRepository, CorporationOption } from '../../CommonMenu/CommonMenuReporitory';
 import { CorporationsSelector } from '../../CommonMenu/CorporationsSelector';
+import '../../../../stylesheet/components/Analysis/PerformanceIndicators.scss';
 
 export function PerformanceIndicators(props: { commonMenuRepository: CommonMenuRepository, performanceIndicatorRepository: PerformanceIndicatorsRepository }) {
     const { commonMenuRepository, performanceIndicatorRepository } = props;

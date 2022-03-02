@@ -10,11 +10,7 @@ export const Menu = (props: {
 }) => {
   const { repository, corporationSetter, accountItemSetter } = props;
   return (<div className={"flex-container"}>
-    <div role="search">
-      <CorporationsSelector repository={repository} setter={corporationSetter} />
-    </div>
-    <div role="search">
-      <AccountItemsSelector repository={repository} setter={accountItemSetter} />
-    </div>
+    <CorporationsSelector repository={repository} setter={corporationSetter} />
+    <AccountItemsSelector repository={repository} setter={accountItemSetter} />
   </div>);
 };
