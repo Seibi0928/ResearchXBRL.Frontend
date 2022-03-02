@@ -1,11 +1,16 @@
 import * as React from 'react';
 import { LineChart, LineChartData, performTimeSeriesAnalysis } from './LineChart';
-import '../../../stylesheet/components/TimeSeriesAnalysis/Analysis.scss';
 import { useEffect, useState } from 'react';
-import { AccountItemOption, CorporationOption, Menu, TimeSeriesAnalysisRepository } from './Menu';
+import { Menu } from './Menu';
+import { AccountItemOption, CommonMenuRepository, CorporationOption } from '../../CommonMenu/CommonMenuReporitory';
+import { TimeSeriesAnalysisRepository } from './TimeSeriesAnalysisRepository';
+import '../../../../stylesheet/components/Analysis/TimeSeriesAnalysis.scss';
 
-export function TimeSeriesAnalysis(props: { repository: TimeSeriesAnalysisRepository }) {
-    const { repository } = props;
+export function TimeSeriesAnalysis(props: {
+    commonMenuRepository: CommonMenuRepository,
+    timeSeriesAnalysisRepository: TimeSeriesAnalysisRepository
+}) {
+    const { commonMenuRepository, timeSeriesAnalysisRepository } = props;
     const [selectedCorporation, setCorporation] = useState<CorporationOption | null>(null);
     const [selectedAccountItem, setAccountItem] = useState<AccountItemOption | null>(null);
     const [analysisData, setAnalysisData] = useState<LineChartData>('waitingUserInput');
@@ -16,7 +21,7 @@ export function TimeSeriesAnalysis(props: { repository: TimeSeriesAnalysisReposi
         }
         setAnalysisData('loading');
         performTimeSeriesAnalysis(
-            repository,
+            timeSeriesAnalysisRepository,
             selectedCorporation,
             selectedAccountItem)
             .then(setAnalysisData);
@@ -25,7 +30,7 @@ export function TimeSeriesAnalysis(props: { repository: TimeSeriesAnalysisReposi
     return (
         <>
             <Menu
-                repository={repository}
+                repository={commonMenuRepository}
                 corporationSetter={setCorporation}
                 accountItemSetter={setAccountItem} />
             <LineChart data={analysisData} />
