@@ -1,4 +1,4 @@
-enum IndicatorTypeViewModel {
+export enum IndicatorTypeViewModel {
     NetSales = 0,
     OperatingIncome = 1,
     OrdinaryIncome = 2,
@@ -6,12 +6,12 @@ enum IndicatorTypeViewModel {
     RateOfReturnOnEquitySummaryOfBusinessResults = 4,
     DividendPaidPerShareSummaryOfBusinessResults = 5
 }
-interface IndicatorsViewModel {
+export interface IndicatorViewModel {
     indicatorType: IndicatorTypeViewModel,
     values: { [key: string]: number };
 }
 export interface PerformanceIndicatorsViewModel {
-    indicators: IndicatorsViewModel[]
+    indicators: IndicatorViewModel[]
 }
 
 export interface PerformanceIndicatorsRepository {
