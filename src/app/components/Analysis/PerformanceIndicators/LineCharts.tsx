@@ -12,8 +12,7 @@ import {
 import dayjs from 'dayjs';
 import React from "react";
 import { Line } from "react-chartjs-2";
-import { CorporationOption } from '../../CommonMenu/CommonMenuReporitory';
-import { PerformanceIndicatorsViewModel, PerformanceIndicatorsRepository, IndicatorViewModel, IndicatorTypeViewModel } from './PerformanceIndicatorsRepository';
+import { PerformanceIndicatorsViewModel, IndicatorViewModel, IndicatorTypeViewModel } from './PerformanceIndicatorsRepository';
 
 ChartJS.register(
     CategoryScale,
@@ -25,12 +24,6 @@ ChartJS.register(
     Legend
 );
 
-export const getPerformanceIndicators = async (
-    repository: PerformanceIndicatorsRepository,
-    corporation: CorporationOption)
-    : Promise<PerformanceIndicatorsViewModel> => {
-    return await repository.getPerformanceIndicators(corporation.value);
-};
 const convertToChartData = (indicator: IndicatorViewModel)
     : ChartData<"line", number[], string> => {
 

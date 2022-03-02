@@ -1,15 +1,30 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { TimeSeriesAnalysis } from '../TimeSeriesAnalysis';
 import { CommonMenuRepository } from '../../../CommonMenu/CommonMenuReporitory';
 import { TimeSeriesAnalysisRepository } from '../TimeSeriesAnalysisRepository';
 
 describe('TimeSeriesAnalysis', () => {
-  test('二つの検索ボックスがある', () => {
+  test('2つの検索ボックスがある', () => {
     render(<TimeSeriesAnalysis commonMenuRepository={createMockCommonMenuRepository()()} timeSeriesAnalysisRepository={createMockTimeSeriesAnalysisRepository()()} />);
 
     expect(screen.getAllByRole('search').length).toEqual(2);
   });
+
+  test('2つの検索ボックスに値を入れエンターを押したときグラフが表示される', async () => {
+    const component = render(<TimeSeriesAnalysis commonMenuRepository={createMockCommonMenuRepository()()} timeSeriesAnalysisRepository={createMockTimeSeriesAnalysisRepository()()} />);
+    for (const searchBox of await component.findAllByRole('combobox')) {
+      await waitFor(() => fireEvent.input(searchBox, { target: { value: 'さけ' } }))
+      await waitFor(() => fireEvent.keyDown(searchBox, {
+        code: 'Enter',
+        key: 'Enter',
+        keyCode: 13,
+        charCode: 13
+      }));
+    }
+
+    expect(await component.findByRole('figure')).toBeInTheDocument();
+  })
 });
 
 function createMockTimeSeriesAnalysisRepository() {

@@ -1,10 +1,17 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
-import { PerformanceIndicatorsRepository } from './PerformanceIndicatorsRepository';
-import { getPerformanceIndicators, LineCharts, LineChartsData } from './LineCharts';
+import { PerformanceIndicatorsRepository, PerformanceIndicatorsViewModel } from './PerformanceIndicatorsRepository';
+import { LineCharts, LineChartsData } from './LineCharts';
 import { CommonMenuRepository, CorporationOption } from '../../CommonMenu/CommonMenuReporitory';
 import { CorporationsSelector } from '../../CommonMenu/CorporationsSelector';
 import '../../../../stylesheet/components/Analysis/PerformanceIndicators.scss';
+
+const getPerformanceIndicators = async (
+    repository: PerformanceIndicatorsRepository,
+    corporation: CorporationOption)
+    : Promise<PerformanceIndicatorsViewModel> => {
+    return await repository.getPerformanceIndicators(corporation.value);
+};
 
 export function PerformanceIndicators(props: { commonMenuRepository: CommonMenuRepository, performanceIndicatorRepository: PerformanceIndicatorsRepository }) {
     const { commonMenuRepository, performanceIndicatorRepository } = props;
