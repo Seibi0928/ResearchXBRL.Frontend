@@ -75,7 +75,7 @@ EDINETのXBRL情報で勘定項目を分析するためのツール
    git clone https://github.com/Seibi0928/ResearchXBRL.Frontend.git
    ```
 1. コンテナ環境構築
-  * (Devcontainerを使う場合)
+  * Devcontainerを使う場合
     - VSCodeを開く
       ```sh
       code ./ResearchXBRL.Frontend
