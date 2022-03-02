@@ -74,7 +74,8 @@ EDINETのXBRL情報で勘定項目を分析するためのツール
    ```sh
    git clone https://github.com/Seibi0928/ResearchXBRL.Frontend.git
    ```
-1. コンテナ環境構築(Devcontainerを使う場合)
+1. コンテナ環境構築
+  * (Devcontainerを使う場合)
     - VSCodeを開く
       ```sh
       code ./ResearchXBRL.Frontend
@@ -82,11 +83,12 @@ EDINETのXBRL情報で勘定項目を分析するためのツール
     - F1を押下しコマンドパレットを開く
     - Reopen in Containerと入力し選択
 
-1. DevContainerを使わない場合
+  * DevContainerを使わない場合
    ```sh
    cd ResearchXBRL.Frontend
    docker-compose -f ./devcontainer/docker-compose.yml up
    ```
+  1. データのインポートを行う([こちら](https://github.com/Seibi0928/ResearchXBRL.Frontend#edinet%E3%81%AE%E3%83%87%E3%83%BC%E3%82%BF%E3%82%A4%E3%83%B3%E3%83%9D%E3%83%BC%E3%83%88%E6%96%B9%E6%B3%95))
 
 #### EDINETのデータインポート方法
 
