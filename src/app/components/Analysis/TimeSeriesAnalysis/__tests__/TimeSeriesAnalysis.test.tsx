@@ -5,13 +5,13 @@ import { CommonMenuRepository } from '../../../CommonMenu/CommonMenuReporitory';
 import { TimeSeriesAnalysisRepository } from '../TimeSeriesAnalysisRepository';
 
 describe('TimeSeriesAnalysis', () => {
-  test('2つの検索ボックスがある', () => {
+  test('企業検索ボックスと勘定項目検索ボックスがある', () => {
     render(<TimeSeriesAnalysis commonMenuRepository={createMockCommonMenuRepository()()} timeSeriesAnalysisRepository={createMockTimeSeriesAnalysisRepository()()} />);
 
     expect(screen.getAllByRole('search').length).toEqual(2);
   });
 
-  test('2つの検索ボックスに値を入れエンターを押したときグラフが表示される', async () => {
+  test('企業検索ボックスと勘定項目検索ボックスにそれぞれに値を入れエンターを押したときグラフが表示される', async () => {
     const component = render(<TimeSeriesAnalysis commonMenuRepository={createMockCommonMenuRepository()()} timeSeriesAnalysisRepository={createMockTimeSeriesAnalysisRepository()()} />);
     for (const searchBox of await component.findAllByRole('combobox')) {
       await waitFor(() => fireEvent.input(searchBox, { target: { value: 'さけ' } }))

@@ -5,7 +5,7 @@ import { PerformanceIndicators } from '../PerformanceIndicators';
 import { PerformanceIndicatorsRepository } from '../PerformanceIndicatorsRepository';
 
 describe('PerformanceIndicators', () => {
-    test('1つの検索ボックスがある', () => {
+    test('企業検索ボックスがある', () => {
         render(<PerformanceIndicators commonMenuRepository={createMockCommonMenuRepository()()} performanceIndicatorRepository={createMockPerformanceIndicatorsRepository()()} />);
 
         expect(screen.getAllByRole('search').length).toEqual(1);
