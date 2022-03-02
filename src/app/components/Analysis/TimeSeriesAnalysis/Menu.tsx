@@ -9,7 +9,7 @@ export const Menu = (props: {
   accountItemSetter: React.Dispatch<React.SetStateAction<AccountItemOption | null>>
 }) => {
   const { repository, corporationSetter, accountItemSetter } = props;
-  return (<div className={"flex-container"}>
+  return (<div className={"time-series-analysis-menu"}>
     <CorporationsSelector repository={repository} setter={corporationSetter} />
     <AccountItemsSelector repository={repository} setter={accountItemSetter} />
   </div>);

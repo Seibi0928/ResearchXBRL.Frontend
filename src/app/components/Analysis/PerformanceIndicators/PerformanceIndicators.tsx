@@ -23,11 +23,11 @@ export function PerformanceIndicators(props: { commonMenuRepository: CommonMenuR
     }, [selectedCorporation]);
 
     return (
-        <>
+        <div className="performance-indicators-menu">
             <CorporationsSelector
                 repository={commonMenuRepository}
                 setter={setCorporation} />
             <LineCharts data={indicatorData} />
-        </>
+        </div>
     );
 }

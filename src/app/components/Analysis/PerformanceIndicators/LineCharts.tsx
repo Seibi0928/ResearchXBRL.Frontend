@@ -80,9 +80,9 @@ export const LineCharts = (props: {
     }
 
     return <div role="main">
-        <div role="group" className="flex-container">
-            {data.indicators.map(i =>
-                <div role="figure">
+        <div role="group" className="indicators-container">
+            {data.indicators.map((i, index) =>
+                <div role="figure" key={index}>
                     <Line options={{
                         plugins: {
                             title: {
