@@ -1,0 +1,21 @@
+.performance-indicators-menu {
+    display: flex;
+    flex-direction: column;
+}
+
+.indicators-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    & > div {
+        width: 500px;
+    }
+}
+  
+@media (max-width: 800px) {
+    .indicators-container {
+        flex-direction: column;
+    }
+}
