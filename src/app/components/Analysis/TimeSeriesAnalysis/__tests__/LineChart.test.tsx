@@ -5,13 +5,13 @@ import { LineChart } from '../LineChart';
 describe('LineChartTest', () => {
   test('分析結果ロード中の時その旨が表示し、グラフは表示しない', () => {
     render(<LineChart data="loading" />);
-    expect(screen.queryByRole('main')).not.toBeInTheDocument();
+    expect(screen.queryByRole('figure')).not.toBeInTheDocument();
     expect(screen.getByText('ロード中...')).toBeInTheDocument();
   });
 
   test('ユーザの入力待ちのときグラフは表示しない', () => {
     render(<LineChart data="waitingUserInput" />);
-    expect(screen.queryByRole('main')).not.toBeInTheDocument();
+    expect(screen.queryByRole('figure')).not.toBeInTheDocument();
   });
 
   test('連結財務諸表、単体財務諸表の分析結果が両方とも0件の場合はその旨を表示し、グラフは表示しない', () => {
@@ -22,7 +22,7 @@ describe('LineChartTest', () => {
       consolidatedValues: [],
       nonConsolidatedValues: []
     }} />);
-    expect(screen.queryByRole('main')).not.toBeInTheDocument();
+    expect(screen.queryByRole('figure')).not.toBeInTheDocument();
     expect(screen.getByText('データ無し')).toBeInTheDocument();
   });
 
@@ -34,7 +34,7 @@ describe('LineChartTest', () => {
       consolidatedValues: [{ financialAccountPeriod: { instant: '' }, amount: 111 }],
       nonConsolidatedValues: []
     }} />);
-    expect(screen.queryByRole('main')).toBeInTheDocument();
+    expect(screen.queryByRole('figure')).toBeInTheDocument();
   })
 
   test('連結財務諸表、単体財務諸表のどちらかの分析結果が1件以上の場合はグラフを表示する2', () => {
@@ -45,6 +45,6 @@ describe('LineChartTest', () => {
       consolidatedValues: [],
       nonConsolidatedValues: [{ financialAccountPeriod: { instant: '' }, amount: 111 }]
     }} />);
-    expect(screen.queryByRole('main')).toBeInTheDocument();
+    expect(screen.queryByRole('figure')).toBeInTheDocument();
   })
 });

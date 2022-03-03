@@ -2,16 +2,22 @@
 import * as ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Link } from "react-router-dom";
 import { renderRoutes, RouteConfig } from "react-router-config";
-import { TimeSeriesAnalysis } from './components/TimeSeriesAnalysis/Analysis';
+import { TimeSeriesAnalysis } from './components/Analysis/TimeSeriesAnalysis/TimeSeriesAnalysis';
+import { PerformanceIndicators } from './components/Analysis/PerformanceIndicators/PerformanceIndicators';
+import { CommonMenuRepositoryImpl } from './infrastructure/CommonMenu/CommonMenuRepository';
+import { TimeSeriesAnalysisRepositoryImpl } from './infrastructure/Analysis/TimeSeriesAnalysis/TimeSeriesAnalysisRepository';
+import { PerformanceIndicatorRepositoryImpl } from './infrastructure/Analysis/PerformanceIndicators/PerformanceIndicatorsRepository';
 import '../stylesheet/app.scss';
-import { TimeSeriesAnalysisRepositoryImpl } from './infrastructure/TimeSeriesAnalysis/TimeSeriesAnalysisRepository';
 
 const Root: React.FunctionComponent<any> = ({ route }: { route: RouteConfig }) => (
     <div>
         <nav>
             <ul>
                 <li>
-                    <Link to="/" className="link-button">時系列分析</Link>
+                    <Link to="/" className="link-button">勘定項目分析</Link>
+                </li>
+                <li>
+                    <Link to="/PerformanceIndicators" className="link-button">業績指標</Link>
                 </li>
             </ul>
         </nav>
@@ -29,7 +35,16 @@ const routes: RouteConfig[] = [
                 path: "/",
                 exact: true,
                 component: () => TimeSeriesAnalysis({
-                    repository: new TimeSeriesAnalysisRepositoryImpl()
+                    commonMenuRepository: new CommonMenuRepositoryImpl(),
+                    timeSeriesAnalysisRepository: new TimeSeriesAnalysisRepositoryImpl()
+                })
+            },
+            {
+                path: "/PerformanceIndicators",
+                exact: true,
+                component: () => PerformanceIndicators({
+                    commonMenuRepository: new CommonMenuRepositoryImpl(),
+                    performanceIndicatorRepository: new PerformanceIndicatorRepositoryImpl()
                 })
             }
         ]
@@ -42,3 +57,4 @@ ReactDOM.render(
     </Router>,
     document.getElementById('root')
 );
+
